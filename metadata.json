@@ -1,0 +1,6 @@
+{
+  "name": "Belagavi Travel Chronicles",
+  "description": "An editorial tourism guide and custom trip planner dedicated to Belagavi (Belgaum), Karnataka — showcasing waterfalls, historic forts, culinary heritage, crafts, and festivals.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
