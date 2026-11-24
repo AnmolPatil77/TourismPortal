@@ -243,8 +243,8 @@ export const SEED_GALLERY: GalleryPhoto[] = [
     id: '22222222-2222-4222-8222-222222222205',
     title: 'Dollu Kunitha Drum Procession',
     category: 'Culture',
-    caption: 'Evening folk percussionists performing during heritage festivities.',
-    imageUrl: '/src/assets/images/culture_kittur_utsava_1795511407130.jpg',
+    caption: 'Folk percussionists performing in a sunlit red-stone heritage courtyard.',
+    imageUrl: '/src/assets/images/gallery_dollu_kunitha_1795515915464.jpg',
     createdAt: '2026-10-03T18:20:00.000Z',
   },
   {

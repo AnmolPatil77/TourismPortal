@@ -1,11 +1,13 @@
-import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import {
+  createClient as createSupabaseJsClient,
+  type SupabaseClient,
+} from '@supabase/supabase-js';
 
-const env =
-  (import.meta as unknown as { env?: Record<string, string | undefined> }).env ??
-  {};
-
-const supabaseUrl = (env.VITE_SUPABASE_URL ?? '').trim();
-const supabaseAnonKey = (env.VITE_SUPABASE_ANON_KEY ?? '').trim();
+export interface SupabaseConfig {
+  url: string;
+  key: string;
+  isConfigured: boolean;
+}
 
 function isValidHttpUrl(value: string): boolean {
   try {
@@ -16,9 +18,34 @@ function isValidHttpUrl(value: string): boolean {
   }
 }
 
-export const isSupabaseConfigured =
-  isValidHttpUrl(supabaseUrl) && supabaseAnonKey.length > 0;
+export function resolveSupabaseConfig(
+  env: Record<string, string | undefined>
+): SupabaseConfig {
+  const url = (env.VITE_SUPABASE_URL ?? '').trim();
+  const key = (
+    env.VITE_SUPABASE_ANON_KEY ||
+    env.VITE_SUPABASE_PUBLISHABLE_KEY ||
+    ''
+  ).trim();
+  return {
+    url,
+    key,
+    isConfigured: isValidHttpUrl(url) && key.length > 0,
+  };
+}
 
-export const supabase: SupabaseClient | null = isSupabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null;
+const runtimeEnv =
+  (import.meta as unknown as { env?: Record<string, string | undefined> }).env ??
+  {};
+
+const config = resolveSupabaseConfig(runtimeEnv);
+
+export const isSupabaseConfigured = config.isConfigured;
+
+export function createClient(): SupabaseClient | null {
+  return config.isConfigured
+    ? createSupabaseJsClient(config.url, config.key)
+    : null;
+}
+
+export const supabase: SupabaseClient | null = createClient();

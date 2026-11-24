@@ -209,7 +209,26 @@ export function createDataService(options?: {
         // Fall back gracefully to localStorage
       }
     }
-    return sortByNewest(readLocalList<GalleryPhoto>(STORAGE_KEYS.gallery, SEED_GALLERY));
+    const items = readLocalList<GalleryPhoto>(STORAGE_KEYS.gallery, SEED_GALLERY);
+    let changed = false;
+    const migrated = items.map((item) => {
+      if (
+        item.id === '22222222-2222-4222-8222-222222222205' &&
+        item.imageUrl === '/src/assets/images/culture_kittur_utsava_1795511407130.jpg'
+      ) {
+        changed = true;
+        return {
+          ...item,
+          caption: 'Folk percussionists performing in a sunlit red-stone heritage courtyard.',
+          imageUrl: '/src/assets/images/gallery_dollu_kunitha_1795515915464.jpg',
+        };
+      }
+      return item;
+    });
+    if (changed) {
+      writeLocalList(STORAGE_KEYS.gallery, migrated);
+    }
+    return sortByNewest(migrated);
   }
 
   async function getContent(): Promise<SiteContentResponse> {

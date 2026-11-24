@@ -261,8 +261,8 @@ insert into public.gallery_photos (
   '22222222-2222-4222-8222-222222222205',
   'Dollu Kunitha Drum Procession',
   'Culture',
-  'Evening folk percussionists performing during heritage festivities.',
-  '/src/assets/images/culture_kittur_utsava_1795511407130.jpg',
+  'Folk percussionists performing in a sunlit red-stone heritage courtyard.',
+  '/src/assets/images/gallery_dollu_kunitha_1795515915464.jpg',
   false,
   '2026-10-03T18:20:00.000Z'
 ),
